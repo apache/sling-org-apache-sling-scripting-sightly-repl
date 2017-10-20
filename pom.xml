@@ -34,9 +34,9 @@
     <description>REPL for Apache Sling Scripting HTL engine</description>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/sling/trunk/bundles/scripting/sightly/repl</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/sling/trunk/bundles/scripting/sightly/repl</developerConnection>
-        <url>http://svn.apache.org/viewvc/sling/trunk/bundles/scripting/sightly/repl</url>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-scripting-sightly-repl.git</conncetion>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-scripting-sightly-repl.git</developerConnection>
+        <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-scripting-sightly-repl.git</url>
     </scm>
 
     <build>
