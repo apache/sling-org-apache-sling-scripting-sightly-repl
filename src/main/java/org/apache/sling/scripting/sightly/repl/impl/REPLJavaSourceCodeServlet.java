@@ -20,25 +20,31 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.servlets.ServletResolverConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SlingServlet(
-        resourceTypes = {"repl/components/repl"},
-        selectors = {"java"},
-        methods = "GET",
-        extensions = "html"
+@Component(
+        service = Servlet.class,
+        property = {
+                ServletResolverConstants.SLING_SERVLET_RESOURCE_TYPES + "=repl/components/repl",
+                ServletResolverConstants.SLING_SERVLET_SELECTORS + "=java",
+                ServletResolverConstants.SLING_SERVLET_METHODS + "=GET",
+                ServletResolverConstants.SLING_SERVLET_EXTENSIONS + "=html",
+                "sling.auth.requirements=+/htl"
+        }
 )
 public class REPLJavaSourceCodeServlet extends SlingSafeMethodsServlet {
 
