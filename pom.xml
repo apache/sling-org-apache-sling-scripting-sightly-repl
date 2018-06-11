@@ -60,7 +60,6 @@
                             <exclude>src/main/resources/SLING-INF/etc/clientlibs/repl/html5shiv.js</exclude>
                             <exclude>src/main/resources/SLING-INF/etc/clientlibs/repl/jquery.min.js</exclude>
                             <exclude>src/main/resources/SLING-INF/etc/clientlibs/repl/respond.min.js</exclude>
-                            <exclude>src/main/resources/SLING-INF/apps/repl/org.apache.sling.engine.impl.auth.SlingAuthenticator.config</exclude>
                         </excludes>
                     </configuration>
                 </plugin>
