@@ -1,0 +1,2 @@
+Sling-Initial-Content: SLING-INF;overwrite=true
+Require-Capability:    io.sightly; filter:="(&(version>=1.0)(!(version>=2.0)))"
