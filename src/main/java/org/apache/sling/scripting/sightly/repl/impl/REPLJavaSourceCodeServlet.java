@@ -85,7 +85,7 @@ public class REPLJavaSourceCodeServlet extends SlingSafeMethodsServlet {
 
     private String getClassSourceCode() {
         if (classesFolder != null && classesFolder.isDirectory()) {
-            File classFile = new File(classesFolder, "org/apache/sling/scripting/sightly/apps/repl/components/repl/template_html.java");
+            File classFile = new File(classesFolder, "org/apache/sling/scripting/sightly/apps/repl/components/repl/template__002e__html.java");
             if (classFile.isFile()) {
                 try {
                     return IOUtils.toString(new FileInputStream(classFile), "UTF-8");
