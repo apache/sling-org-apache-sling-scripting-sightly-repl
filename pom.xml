@@ -29,7 +29,7 @@
     <artifactId>org.apache.sling.scripting.sightly.repl</artifactId>
     <version>1.0.7-SNAPSHOT</version>
 
-    <name>Apache Sling Scripting HTL Read-Eval-Print Loop Environment</name>
+    <name>Apache Sling Scripting HTL REPL</name>
     <description>REPL for Apache Sling Scripting HTL engine</description>
 
     <scm>
