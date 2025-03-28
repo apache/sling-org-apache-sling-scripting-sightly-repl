@@ -1,27 +1,29 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.apache.sling.scripting.sightly.repl.impl;
+
+import javax.servlet.Servlet;
+import javax.servlet.ServletException;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import javax.servlet.Servlet;
-import javax.servlet.ServletException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -39,13 +41,12 @@ import org.slf4j.LoggerFactory;
 @Component(
         service = Servlet.class,
         property = {
-                ServletResolverConstants.SLING_SERVLET_RESOURCE_TYPES + "=repl/components/repl",
-                ServletResolverConstants.SLING_SERVLET_SELECTORS + "=java",
-                ServletResolverConstants.SLING_SERVLET_METHODS + "=GET",
-                ServletResolverConstants.SLING_SERVLET_EXTENSIONS + "=html",
-                "sling.auth.requirements=+/htl"
-        }
-)
+            ServletResolverConstants.SLING_SERVLET_RESOURCE_TYPES + "=repl/components/repl",
+            ServletResolverConstants.SLING_SERVLET_SELECTORS + "=java",
+            ServletResolverConstants.SLING_SERVLET_METHODS + "=GET",
+            ServletResolverConstants.SLING_SERVLET_EXTENSIONS + "=html",
+            "sling.auth.requirements=+/htl"
+        })
 public class REPLJavaSourceCodeServlet extends SlingSafeMethodsServlet {
 
     private static final String FS_CLASSLOADER_SN = "org.apache.sling.commons.fsclassloader";
@@ -65,7 +66,8 @@ public class REPLJavaSourceCodeServlet extends SlingSafeMethodsServlet {
     }
 
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/plain");
         String sourceCode = getClassSourceCode();
         if (sourceCode.length() == 0) {
@@ -74,10 +76,13 @@ public class REPLJavaSourceCodeServlet extends SlingSafeMethodsServlet {
             if (request.getServerPort() != 80) {
                 configurationLink.append(":").append(request.getServerPort());
             }
-            configurationLink.append(request.getContextPath())
-                    .append("/system/console/configMgr/org.apache.sling.scripting.sightly.impl.engine.SightlyEngineConfiguration");
-            response.getWriter().write("/**\n * Please enable the \"Keep Generated Java Source Code\" option at\n * " + configurationLink
-                    .toString() + "\n */");
+            configurationLink
+                    .append(request.getContextPath())
+                    .append(
+                            "/system/console/configMgr/org.apache.sling.scripting.sightly.impl.engine.SightlyEngineConfiguration");
+            response.getWriter()
+                    .write("/**\n * Please enable the \"Keep Generated Java Source Code\" option at\n * "
+                            + configurationLink.toString() + "\n */");
         } else {
             response.getWriter().write(getClassSourceCode());
         }
@@ -85,7 +90,9 @@ public class REPLJavaSourceCodeServlet extends SlingSafeMethodsServlet {
 
     private String getClassSourceCode() {
         if (classesFolder != null && classesFolder.isDirectory()) {
-            File classFile = new File(classesFolder, "org/apache/sling/scripting/sightly/apps/repl/components/repl/template__002e__html.java");
+            File classFile = new File(
+                    classesFolder,
+                    "org/apache/sling/scripting/sightly/apps/repl/components/repl/template__002e__html.java");
             if (classFile.isFile()) {
                 try {
                     return IOUtils.toString(new FileInputStream(classFile), "UTF-8");
@@ -93,11 +100,10 @@ public class REPLJavaSourceCodeServlet extends SlingSafeMethodsServlet {
                     LOGGER.error("Unable to read file " + classFile.getAbsolutePath(), e);
                 }
             }
-            LOGGER.warn("Source code for " + (classesFolder.isDirectory() ? classesFolder.getAbsolutePath() : "") +
-                    "/org/apache/sling/scripting/sightly/apps/repl/components/repl/template_html.java was not found. Maybe you need to " +
-                    "configure the HTL Scripting Engine to keep the generated source files?");
+            LOGGER.warn("Source code for " + (classesFolder.isDirectory() ? classesFolder.getAbsolutePath() : "")
+                    + "/org/apache/sling/scripting/sightly/apps/repl/components/repl/template_html.java was not found. Maybe you need to "
+                    + "configure the HTL Scripting Engine to keep the generated source files?");
         }
         return "";
     }
-
 }
